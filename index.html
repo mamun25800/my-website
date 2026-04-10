@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Platform</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      display: inline-block;
+      padding: 15px 25px;
+      margin: 10px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    iframe {
+      margin-top: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="home" class="container">
+  <h1>Select Your Level</h1>
+  <div class="card" onclick="showSSC()">SSC</div>
+  <div class="card" onclick="showHSC()">HSC</div>
+</div>
+
+<div id="ssc" class="container hidden">
+  <h1>SSC Chapters</h1>
+  <div class="card" onclick="showLecture('ssc1')">Chapter 1</div>
+  <div class="card" onclick="showLecture('ssc2')">Chapter 2</div>
+  <button onclick="goHome()">Back</button>
+</div>
+
+<div id="hsc" class="container hidden">
+  <h1>HSC Chapters</h1>
+  <div class="card" onclick="showLecture('hsc1')">Chapter 1</div>
+  <div class="card" onclick="showLecture('hsc2')">Chapter 2</div>
+  <button onclick="goHome()">Back</button>
+</div>
+
+<div id="lecture" class="container hidden">
+  <h1>Lectures</h1>
+  <div id="videos"></div>
+  <button onclick="goBack()">Back</button>
+</div>
+
+<script>
+function showSSC(){
+  hideAll();
+  document.getElementById('ssc').classList.remove('hidden');
+}
+
+function showHSC(){
+  hideAll();
+  document.getElementById('hsc').classList.remove('hidden');
+}
+
+function showLecture(chapter){
+  hideAll();
+  document.getElementById('lecture').classList.remove('hidden');
+
+  let videosDiv = document.getElementById('videos');
+  videosDiv.innerHTML = '';
+
+  let links = {
+    'ssc1': [
+      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+      {title: 'Lecture 2', link: 'https://www.youtube.com/embed/tgbNymZ7vqY'},
+      {title: 'Lecture 3', link: 'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+    ],
+    'ssc2': [
+      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+    ],
+    'hsc1': [
+      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/tgbNymZ7vqY'},
+      {title: 'Lecture 2', link: 'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+    ],
+    'hsc2': [
+      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/dQw4w9WgXcQ'}
+    ]
+  };
+
+  links[chapter].forEach(video => {
+    let block = `
+      <div>
+        <h3>${video.title}</h3>
+        <iframe width="560" height="315" src="${video.link}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    `;
+    videosDiv.innerHTML += block;
+  });
+}
+
+function goBack(){
+  hideAll();
+  document.getElementById('ssc').classList.remove('hidden');
+}
+
+function goHome(){
+  hideAll();
+  document.getElementById('home').classList.remove('hidden');
+}
+
+function hideAll(){
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('ssc').classList.add('hidden');
+  document.getElementById('hsc').classList.add('hidden');
+  document.getElementById('lecture').classList.add('hidden');
+}
+</script>
+
+</body>
+</html>
