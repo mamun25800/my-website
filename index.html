@@ -2,118 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Study Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Study Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      margin: 0;
-      background: linear-gradient(-45deg, #4facfe, #00f2fe, #43e97b, #38f9d7);
-      background-size: 400% 400%;
-      animation: bgMove 10s ease infinite;
+    :root {
+      --primary: #4facfe;
+      --secondary: #00f2fe;
+      --glass: rgba(255, 255, 255, 0.15);
     }
 
-    @keyframes bgMove {
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #23a6d5, #23d5ab, #ee7752, #e73c7e);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
     .container {
-      margin-top: 50px;
+      width: 90%;
+      max-width: 800px;
+      padding: 30px;
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: zoomIn 0.5s ease;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h1 { font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+    h2 { font-weight: 400; color: #f0f0f0; margin-bottom: 25px; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
     }
 
     .card {
-      display: inline-block;
-      padding: 15px 25px;
-      margin: 10px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background: white;
+      color: #333;
+      padding: 20px 10px;
+      border-radius: 15px;
       cursor: pointer;
+      font-weight: 600;
       transition: 0.3s;
-      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .card:hover {
-      transform: scale(1.08);
+      transform: translateY(-5px);
+      background: var(--primary);
+      color: white;
     }
 
-    iframe {
-      margin-top: 15px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+    .video-item {
+      background: rgba(0,0,0,0.3);
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
       border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      overflow: hidden;
     }
 
-    button {
-      padding: 10px 15px;
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    button.back-btn {
+      margin-top: 25px;
+      padding: 10px 25px;
       border: none;
-      border-radius: 8px;
+      border-radius: 20px;
+      background: #fff;
+      color: #333;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 20px;
-      font-weight: bold;
-      background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: 0.3s;
     }
 
-    .hidden {
-      display: none;
-    }
+    button.back-btn:hover { background: #ddd; transform: scale(1.05); }
+
+    .hidden { display: none; }
   </style>
-
 </head>
 <body>
 
-<div id="home" class="container">
-  <h1>Select Your Level</h1>
-  <div class="card" onclick="showSSC()">SSC</div>
-  <div class="card" onclick="showHSC()">HSC</div>
-</div>
+<div class="container">
+  
+  <div id="view-levels">
+    <h1>Study Platform</h1>
+    <h2>Select Your Level</h2>
+    <div class="grid">
+      <div class="card" onclick="showSubjects('ssc')">SSC</div>
+      <div class="card" onclick="showSubjects('hsc')">HSC</div>
+    </div>
+  </div>
 
-<div id="ssc" class="container hidden">
-  <h1>SSC Chapters</h1>
-  <div class="card" onclick="showLecture('ssc1')">Vector</div>
-  <div class="card" onclick="showLecture('ssc2')">Chapter 1</div>
-  <button onclick="goHome()">Back</button>
-</div>
+  <div id="view-subjects" class="hidden">
+    <h1 id="subject-title">Subjects</h1>
+    <div id="subject-list" class="grid"></div>
+    <button class="back-btn" onclick="navigateTo('view-levels')">← Back</button>
+  </div>
 
-<div id="hsc" class="container hidden">
-  <h1>HSC Chapters</h1>
-  <div class="card" onclick="showLecture('hsc1')">Chapter 1</div>
-  <div class="card" onclick="showLecture('hsc2')">Chapter 2</div>
-  <button onclick="goHome()">Back</button>
-</div>
+  <div id="view-chapters" class="hidden">
+    <h1 id="chapter-title">Chapters</h1>
+    <div id="chapter-list" class="grid"></div>
+    <button class="back-btn" onclick="navigateTo('view-subjects')">← Back</button>
+  </div>
 
-<div id="lecture" class="container hidden">
-  <h1>Lectures</h1>
-  <div id="videos"></div>
-  <button onclick="goBack()">Back</button>
+  <div id="view-lectures" class="hidden">
+    <h1 id="lecture-header">Lectures</h1>
+    <div id="lecture-list"></div>
+    <button class="back-btn" onclick="navigateTo('view-chapters')">← Back</button>
+  </div>
+
 </div>
 
 <script>
-function showSSC(){
-  hideAll();
-  document.getElementById('ssc').classList.remove('hidden');
-}
+  let selectedLevel = "";
+  let selectedSubject = "";
 
-function showHSC(){
-  hideAll();
-  document.getElementById('hsc').classList.remove('hidden');
-}
+  const data = {
+    ssc: {
+      "General Math": ["Chapter 1", "Chapter 2"],
+      "Higher Math": ["Vector", "Coordinate Geometry"],
+      "Physics": ["Motion", "Force"],
+      "Chemistry": ["Structure of Matter"]
+    },
+    hsc: {
+      "Math": ["Matrix", "Calculus"],
+      "Physics": ["Vector", "Dynamics"],
+      "Chemistry": ["Organic Chemistry"],
+      "ICT": ["Programming", "HTML"]
+    }
+  };
 
-function showLecture(chapter){
-  hideAll();
-  document.getElementById('lecture').classList.remove('hidden');
-
-  let videosDiv = document.getElementById('videos');
-  videosDiv.innerHTML = '';
-
-  let links = {
-    'ssc1': [
+  const videoLinks = {
+    "Vector": [
       {title: 'Lecture 1', link: 'https://www.youtube.com/embed/UvWDgqlZz-A'},
       {title: 'Lecture 2', link: 'https://www.youtube.com/embed/VV9Agqb40M4'},
       {title: 'Lecture 3', link: 'https://www.youtube.com/embed/W8eZC4QOK4A'},
@@ -122,46 +175,58 @@ function showLecture(chapter){
       {title: 'Lecture 6', link: 'https://www.youtube.com/embed/JuYQC1yERVg'},
       {title: 'Lecture 7', link: 'https://www.youtube.com/embed/MsdhaWTXbWw'},
       {title: 'Lecture 8', link: 'https://www.youtube.com/embed/paDFwGHzj84'}
-    ],
-    'ssc2': [
-      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/dQw4w9WgXcQknh'}
-    ],
-    'hsc1': [
-      {title: 'Lecture 1', link: 'https://www.youtube.com/embed/tgbNymZ7vqjnkY'},
-      {title: 'Lecture 2', link: 'https://www.youtube.com/embed/dQw4w9WgnjnkjXcQ'}
-    ],
-    'hsc2': [
-      {title: 'Lecture 1', link: 'https://www.youtube.com/kknnhhembed/dQw4w9WgXcQ'}
     ]
   };
 
-  links[chapter].forEach(video => {
-    let block = `
-      <div>
-        <h3>${video.title}</h3>
-        <iframe width="560" height="315" src="${video.link}" frameborder="0" allowfullscreen></iframe>
-      </div>
-    `;
-    videosDiv.innerHTML += block;
-  });
-}
+  function navigateTo(viewId) {
+    document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+    document.getElementById(viewId).classList.remove('hidden');
+  }
 
-function goBack(){
-  hideAll();
-  document.getElementById('ssc').classList.remove('hidden');
-}
+  function showSubjects(level) {
+    selectedLevel = level;
+    const list = document.getElementById('subject-list');
+    list.innerHTML = "";
+    document.getElementById('subject-title').innerText = level.toUpperCase() + " Subjects";
+    
+    Object.keys(data[level]).forEach(subject => {
+      list.innerHTML += `<div class="card" onclick="showChapters('${subject}')">${subject}</div>`;
+    });
+    navigateTo('view-subjects');
+  }
 
-function goHome(){
-  hideAll();
-  document.getElementById('home').classList.remove('hidden');
-}
+  function showChapters(subject) {
+    selectedSubject = subject;
+    const list = document.getElementById('chapter-list');
+    list.innerHTML = "";
+    document.getElementById('chapter-title').innerText = subject;
 
-function hideAll(){
-  document.getElementById('home').classList.add('hidden');
-  document.getElementById('ssc').classList.add('hidden');
-  document.getElementById('hsc').classList.add('hidden');
-  document.getElementById('lecture').classList.add('hidden');
-}
+    data[selectedLevel][subject].forEach(chapter => {
+      list.innerHTML += `<div class="card" onclick="showLectures('${chapter}')">${chapter}</div>`;
+    });
+    navigateTo('view-chapters');
+  }
+
+  function showLectures(chapter) {
+    const list = document.getElementById('lecture-list');
+    list.innerHTML = "";
+    document.getElementById('lecture-header').innerText = chapter + " Lectures";
+
+    if (videoLinks[chapter]) {
+      videoLinks[chapter].forEach(vid => {
+        list.innerHTML += `
+          <div class="video-item">
+            <h3>${vid.title}</h3>
+            <div class="video-container">
+              <iframe src="${vid.link}" allowfullscreen></iframe>
+            </div>
+          </div>`;
+      });
+    } else {
+      list.innerHTML = "<p>Coming Soon! This chapter is not yet updated.</p>";
+    }
+    navigateTo('view-lectures');
+  }
 </script>
 
 </body>
