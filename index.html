@@ -3,34 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <title>Study Platform</title>
+
   <style>
     body {
       font-family: Arial;
       text-align: center;
-      background: #f4f4f4;
+      margin: 0;
+      background: linear-gradient(-45deg, #4facfe, #00f2fe, #43e97b, #38f9d7);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease infinite;
     }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .container {
       margin-top: 50px;
     }
+
     .card {
       display: inline-block;
       padding: 15px 25px;
       margin: 10px;
-      background: white;
+      background: rgba(255,255,255,0.9);
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
     }
+
+    .card:hover {
+      transform: scale(1.08);
+    }
+
     iframe {
       margin-top: 15px;
       display: block;
       margin-left: auto;
       margin-right: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: bold;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
     .hidden {
       display: none;
     }
   </style>
+
 </head>
 <body>
 
