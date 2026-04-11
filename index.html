@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Study Platform</title>
+  <title>Advanced Study Platform | Md. Al Mamun</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -77,6 +77,30 @@
       color: white;
     }
 
+    .identity-card {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 20px;
+    }
+
+    .identity-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--secondary);
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .identity-info h3 { margin: 0; font-size: 1.2rem; color: #fff; }
+    .identity-info p { margin: 5px 0 0; font-size: 0.9rem; color: #e0e0e0; }
+
     .video-item {
       background: rgba(0,0,0,0.3);
       padding: 15px;
@@ -97,7 +121,6 @@
       top: 0; left: 0; width: 100%; height: 100%; border: 0;
     }
 
-    /* Subscribe Button Style */
     .subscribe-box {
       margin-top: 30px;
       padding: 25px;
@@ -119,11 +142,7 @@
       box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
     }
 
-    .sub-btn:hover {
-      transform: scale(1.05);
-      background: #cc0000;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.5);
-    }
+    .sub-btn:hover { transform: scale(1.05); background: #cc0000; }
 
     button.back-btn {
       margin-top: 25px;
@@ -136,8 +155,6 @@
       cursor: pointer;
       transition: 0.3s;
     }
-
-    button.back-btn:hover { background: #ddd; transform: scale(1.05); }
 
     .hidden { display: none; }
   </style>
@@ -152,6 +169,15 @@
     <div class="grid">
       <div class="card" onclick="showSubjects('ssc')">SSC</div>
       <div class="card" onclick="showSubjects('hsc')">HSC</div>
+    </div>
+
+    <div class="identity-card">
+      <img src="mamun.jpg" alt="Md Al Mamun" class="identity-img">
+      <div class="identity-info">
+        <h3>Md. Al Mamun</h3>
+        <p>B.Sc. in CSE, <strong>RUET</strong></p>
+        <p style="font-size: 0.8rem; opacity: 0.8;">Founder & Instructor</p>
+      </div>
     </div>
   </div>
 
@@ -252,7 +278,6 @@
           </div>`;
       });
 
-      // ইউটিউব সাবস্ক্রাইব বাটন যোগ করা হয়েছে
       list.innerHTML += `
         <div class="subscribe-box">
           <h3>Enjoying our classes?</h3>
