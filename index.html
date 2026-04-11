@@ -12,6 +12,22 @@
       --secondary: #00f2fe;
       --glass: rgba(255, 255, 255, 0.15);
       --yt-red: #ff0000;
+      --notice-bg: #ffcc00; /* নোটিশের জন্য হলুদ রঙ */
+    }
+
+    /* --- New Notice Bar Style --- */
+    .exam-notice {
+      background: var(--notice-bg);
+      color: #000;
+      padding: 10px;
+      text-align: center;
+      font-weight: 600;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1001;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      font-size: 0.9rem;
     }
 
     body {
@@ -20,13 +36,68 @@
       color: #fff;
       min-height: 100vh;
       display: flex;
+      flex-direction: column; /* Notice বারের জন্য column করা হয়েছে */
       justify-content: center;
       align-items: center;
       background: linear-gradient(-45deg, #23a6d5, #23d5ab, #ee7752, #e73c7e);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
+      overflow-x: hidden;
+      padding-top: 40px; /* Notice বারের জন্য জায়গা রাখা */
     }
 
+    /* --- Warning Modal Styles --- */
+    #warning-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000; /* নোটিশের উপরে রাখার জন্য */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .warning-box {
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 85%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: zoomIn 0.4s ease;
+    }
+
+    .warning-box h2 { color: #d9534f; margin-top: 0; }
+    .warning-box p { font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+    
+    /* নোটিশ হাইলাইট টেক্সট */
+    .notice-highlight {
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ffeeba;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #856404;
+    }
+
+    .close-warning-btn {
+      background: #4facfe;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
+    .close-warning-btn:hover { background: #00f2fe; transform: scale(1.05); }
+
+    /* --- বাকী আগের স্টাইলগুলো অপরিবর্তিত --- */
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -161,6 +232,19 @@
 </head>
 <body>
 
+<div class="exam-notice">
+  <marquee scrollamount="5">📢 জরুরি নোটিশ: পরীক্ষার কারণে আগামী কয়েকদিন নতুন ভিডিও আপলোড বন্ধ থাকবে। সবাই পাশে থেকো!</marquee>
+</div>
+
+<div id="warning-overlay">
+  <div class="warning-box">
+    <h2>⚠️ বিশেষ বিজ্ঞপ্তি</h2>
+    <p>আমাদের কন্টেন্টগুলো কপি করা বা অন্য কোথাও অনুমতি ছাড়া ব্যবহার করা আইনত দণ্ডনীয়।</p>
+
+    <button class="close-warning-btn" onclick="closeWarning()">বুঝেছি, প্রবেশ করুন</button>
+  </div>
+</div>
+
 <div class="container">
   
   <div id="view-levels">
@@ -172,7 +256,7 @@
     </div>
 
     <div class="identity-card">
-      <img src="mamun.jpg" alt="Md Al Mamun" class="identity-img">
+      <img src="images/mamun.jpg" alt="Md Al Mamun" class="identity-img">
       <div class="identity-info">
         <h3>Md. Al Mamun</h3>
         <p>B.Sc. in CSE, <strong>RUET</strong></p>
@@ -198,10 +282,13 @@
     <div id="lecture-list"></div>
     <button class="back-btn" onclick="navigateTo('view-chapters')">← Back</button>
   </div>
-
 </div>
 
 <script>
+  function closeWarning() {
+    document.getElementById('warning-overlay').style.display = 'none';
+  }
+
   let selectedLevel = "";
   let selectedSubject = "";
 
